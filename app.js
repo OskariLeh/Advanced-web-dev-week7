@@ -44,6 +44,10 @@ app.post("/api/user/register", checkAuthentication,(req, res, next) => {
   })
 })
 
+app.get("/api/user/list", (req, res, next) => {
+  res.send(users)
+})
+
 function getUserByUsername(username) {
   return users.find(user => user.username === username)
 }
@@ -73,7 +77,7 @@ app.get("/api/secret/", (req, res, next) => {
   }
 })
 
-app.post("/api/todos/", (req, res, next) => {
+app.post("/api/todos", (req, res, next) => {
   if (!req.isAuthenticated()){
     return res.status(401)
   }
