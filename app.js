@@ -57,15 +57,6 @@ function getUserById(id) {
   return users.find(user => user.id === id)
 }
 
-function checkAuthentication(req, res, next) {
-  if (req.isAuthenticated()) {
-    console.log("You cant login when logged in")
-    return res.redirect("/")
-  } else {
-    return next()
-  }
-}
-
 app.post("/api/user/login",  checkAuthentication ,passport.authenticate("local", {
   successMessage: "Logged in",
   failureMessage: "Failed to login"
@@ -78,6 +69,14 @@ app.post("/api/user/login",  checkAuthentication ,passport.authenticate("local",
   }
 })
 
+function checkAuthentication(req, res, next) {
+  if (req.isAuthenticated()) {
+    console.log("You cant login when logged in")
+    return res.status(300).redirect("/")
+  } else {
+    return next()
+  }
+}
 
 app.get("/api/secret/", (req, res, next) => {
   if (req.isAuthenticated()) {
