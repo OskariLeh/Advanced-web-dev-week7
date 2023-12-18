@@ -106,7 +106,7 @@ app.post("/api/todos", (req, res, next) => {
 })
 
 app.get("/api/todos/list", (req, res, next) => {
-  res.send({"todos": todos})
+  res.send(todos)
 })
 
 app.listen(port, () => {
