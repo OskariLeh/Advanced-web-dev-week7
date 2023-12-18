@@ -58,7 +58,8 @@ function getUserById(id) {
 }
 
 function checkAuthentication(req, res, next) {
-  if (!req.isAuthenticated()) {
+  if (req.isAuthenticated()) {
+    console.log("You cant login when logged in")
     return res.redirect("/")
   } else {
     return next()
