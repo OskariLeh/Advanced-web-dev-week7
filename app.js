@@ -44,6 +44,9 @@ app.post("/api/user/register", checkAuthentication,(req, res, next) => {
     })
   })
 })
+app.get("/", (req, res, next) => {
+  res.send({"msg": "hello world"})
+})
 
 app.get("/api/user/list", (req, res, next) => {
   res.send(users)
