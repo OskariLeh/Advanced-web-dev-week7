@@ -90,14 +90,15 @@ app.post("/api/todos", (req, res, next) => {
   if (!req.isAuthenticated()){
     return res.status(401).send("not logged in")
   }
+  console.log(req.user)
   for (let i = 0; i < todos.length; i++) {
-    if (todos[i].id == req.session.currentUser.id){
+    if (todos[i].id == req.user.id){
       todos[i].todos.push(req.body.todo)
       return res.send(todos[i])
     }
   }
   let newTodos = {
-    id: req.session.currentUser.id,
+    id: req.user.id,
     todos: [req.body.todo]
   }
   todos.push(newTodos)
