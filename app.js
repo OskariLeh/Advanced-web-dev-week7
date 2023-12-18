@@ -59,13 +59,20 @@ function getUserById(id) {
 function checkAuthentication(req, res, next) {
   if (req.isAuthenticated()) {
     return res.redirect("/")
+  } else {
+    return next()
   }
-  return next()
 }
 
 app.post("/api/user/login",  checkAuthentication ,passport.authenticate("local", {
   successMessage: "Logged in",
-  failureMessage: "Failed to login",
+  failureMessage: "Failed to login"
+}, function(req, res) {
+  if (req.isAuthenticated()) {
+    return res.status(200)
+  } else {
+    return res.status(401)
+  }
 }))
 
 
