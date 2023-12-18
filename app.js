@@ -5,6 +5,7 @@ var session = require("express-session")
 var bcrypt = require("bcryptjs")
 
 const initializePassport = require("./passport-config")
+initializePassport(passport, getUserByUsername, getUserById)
 
 var app = express();
 
@@ -17,7 +18,7 @@ app.use(session({
 }))
 app.use(passport.initialize())
 app.use(passport.session())
-initializePassport(passport, getUserByUsername, getUserById)
+
 
 
 let users = []
@@ -67,13 +68,14 @@ function checkAuthentication(req, res, next) {
 app.post("/api/user/login",  checkAuthentication ,passport.authenticate("local", {
   successMessage: "Logged in",
   failureMessage: "Failed to login"
-}, function(req, res) {
+}), function(req, res) {
   if (req.isAuthenticated()) {
+    console.log("here")
     return res.status(200)
   } else {
     return res.status(401)
   }
-}))
+})
 
 
 app.get("/api/secret/", (req, res, next) => {
