@@ -58,7 +58,7 @@ function getUserById(id) {
 }
 
 function checkAuthentication(req, res, next) {
-  if (req.isAuthenticated()) {
+  if (!req.isAuthenticated()) {
     return res.redirect("/")
   } else {
     return next()
