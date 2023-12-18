@@ -71,24 +71,24 @@ app.post("/api/user/login",  checkAuthentication ,passport.authenticate("local",
 }), function(req, res) {
   if (req.isAuthenticated()) {
     console.log("here")
-    return res.status(200)
+    return res.status(200).send("success")
   } else {
-    return res.status(401)
+    return res.status(401).send("failure")
   }
 })
 
 
 app.get("/api/secret/", (req, res, next) => {
   if (req.isAuthenticated()) {
-    return res.status(200)
+    return res.status(200).send("You are logged in")
   } else {
-    return res.status(401)
+    return res.status(401).send("You are not logged in")
   }
 })
 
 app.post("/api/todos", (req, res, next) => {
   if (!req.isAuthenticated()){
-    return res.status(401)
+    return res.status(401).send("not logged in")
   }
   for (let i = 0; i < todos.length; i++) {
     if (todos[i].id == req.session.currentUser.id){
